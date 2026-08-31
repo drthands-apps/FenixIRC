@@ -1,112 +1,654 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FenixIRC - El Cliente IRC de Próxima Generación</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f4f9; }
-        header { background: #6200EE; color: white; padding: 40px 20px; text-align: center; border-radius: 8px; margin-bottom: 30px; }
-        h1 { margin: 0; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .pro-badge { background: #03DAC6; color: #000; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
-        code { background: #eee; padding: 2px 5px; border-radius: 4px; }
-        footer { text-align: center; font-size: 0.8em; color: #777; margin-top: 50px; }
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6200EE;
+            --primary-dark: #3700B3;
+            --secondary: #03DAC6;
+            --pro: #FFD700;
+            --danger: #FF5252;
+            --bg: #f4f4f9;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            padding: 50px 30px 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(98, 0, 238, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+        }
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: #000;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navegación */
+        .nav {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .nav a {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: all var(--transition);
+        }
+        .nav a:hover {
+            color: #fff;
+            border-bottom-color: var(--secondary);
+        }
+
+        /* ===== BOTONES DE DESCARGA ===== */
+        .download-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: var(--primary);
+        }
+        .btn-primary:hover {
+            background: #f0f0ff;
+        }
+
+        .btn-pro {
+            background: #2d3436;
+            color: #fff;
+        }
+        .btn-pro:hover {
+            background: #1a1a1a;
+        }
+
+        .btn-donate {
+            background: var(--pro);
+            color: #1a1a1a;
+        }
+        .btn-donate:hover {
+            background: #f0c000;
+        }
+
+        .btn .icon {
+            font-size: 1.3rem;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card-bg);
+            padding: 28px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: transform var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-highlight {
+            border-left: 5px solid var(--primary);
+            background: #f8f5ff;
+        }
+
+        .card-secondary {
+            border-left: 5px solid var(--secondary);
+            background: #f0fdfa;
+        }
+
+        .card-pro {
+            border: 2px solid var(--pro);
+            background: #fefcf0;
+        }
+
+        .card-dark {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+        }
+        .card-dark h2,
+        .card-dark h3 {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+        .card-dark a {
+            color: var(--secondary);
+        }
+        .card-dark a:hover {
+            color: #fff;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 16px;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card-dark h2 {
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .pro-badge {
+            display: inline-block;
+            background: var(--pro);
+            color: #000;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        .lite-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: #000;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        /* ===== FEATURE LISTS ===== */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+        }
+        .feature-list li {
+            padding: 4px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .feature-list li::before {
+            content: "✦";
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .card-dark .feature-list li::before {
+            color: var(--pro);
+        }
+
+        @media (max-width: 600px) {
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== SCRIPT EJEMPLOS ===== */
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 16px 20px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 12px 0;
+            border-left: 4px solid var(--pro);
+        }
+        .code-block .comment {
+            color: #6c7086;
+        }
+        .code-block .keyword {
+            color: #cba6f7;
+        }
+        .code-block .string {
+            color: #a6e3a1;
+        }
+        .code-block .variable {
+            color: #f9e2af;
+        }
+
+        /* ===== SECCIÓN DE SEGURIDAD (NUEVA) ===== */
+        .safety-tip {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .safety-tip:last-child {
+            border-bottom: none;
+        }
+        .safety-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            width: 48px;
+            text-align: center;
+        }
+        .safety-tip h4 {
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+        .safety-tip p {
+            margin: 0;
+            color: var(--text-light);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            margin-top: 20px;
+        }
+        footer .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 24px;
+            margin-bottom: 16px;
+        }
+        footer .footer-links a {
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.8rem;
+            }
+            header {
+                padding: 30px 20px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .download-grid {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav {
+                gap: 4px 14px;
+            }
+            .nav a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .logo {
+                font-size: 2.2rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>FenixIRC</h1>
-        <p>Potente. Privado. Open Source.</p>
-        <p style="font-size: 0.7em; opacity: 0.8;">Made with Gemini AI</p>
-        <nav style="margin-top: 20px;">
-            <a href="tutorials/index.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: bold;">Tutoriales</a>
-            <a href="manuals/index.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: bold;">Manuales</a>
-            <a href="opinions/index.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: bold;">Opiniones</a>
-            <a href="support/index.html" style="color: white; margin: 0 15px; text-decoration: none; font-weight: bold;">Soporte</a>
-        </nav>
-    </header>
+    <div class="container">
 
-    <div class="card" style="border: 2px solid #6200EE; background: #F3E5F5;">
-        <h2 style="margin-top: 0;">FenixIRC Lite - Beta v0.8.3</h2>
-        <p>¡Ya puedes probar la versión más ligera y rápida de FenixIRC! Diseñada para redes de texto puro con el mínimo consumo de batería e identidad de sigilo (Stealth).</p>
-        <div style="text-align: center; margin: 20px 0;">
-            <a href="https://github.com/drthands-apps/IRCClient/releases/download/v0.8.3-beta/app-lite-release.apk" style="background: #6200EE; color: white; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; box-shadow: 0 4px 10px rgba(98, 0, 238, 0.3);">Descargar APK Directo (Lite Beta)</a>
-        </div>
-        <p style="font-size: 0.85em; color: #666; font-style: italic;">* Requiere habilitar la instalación de aplicaciones de fuentes desconocidas en tu dispositivo Android.</p>
-    </div>
+        <!-- ===== HEADER ===== -->
+        <header>
+            <div class="logo">Fenix<span>IRC</span></div>
+            <p class="tagline">Potente. Privado. Open Source.</p>
+            <span class="header-badge">v0.9 — Lite &amp; Pro disponibles</span>
 
-    <div class="card" style="border: 2px solid #03DAC6; background: #E0F2F1;">
-        <h2 style="margin-top: 0;">FenixIRC Pro - Edición de Coleccionista</h2>
-        <p>Acceso anticipado a funciones avanzadas: Scripts ilimitados, gestión de canales (OP/KICK/BAN) y el futuro sistema de túnel multimedia FSR.</p>
-        <div style="text-align: center; margin: 20px 0;">
-            <a href="https://github.com/drthands-apps/IRCClient/releases/download/v0.8.3-beta/app-pro-release.zip" style="background: #03DAC6; color: #000; padding: 15px 30px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; box-shadow: 0 4px 10px rgba(3, 218, 198, 0.3);">Descargar Pro (ZIP con Contraseña)</a>
-        </div>
-        <p style="font-size: 0.85em; color: #666; font-style: italic;">* Contacta con el equipo de soporte para obtener la contraseña de descompresión.</p>
-    </div>
+            <nav class="nav">
+                <a href="#features">Características</a>
+                <a href="#scripts">Scripts</a>
+                <a href="#safety">Seguridad</a>
+                <a href="#donate">Donaciones</a>
+                <a href="tutorials/index.html">Tutoriales</a>
+                <a href="manuals/index.html">Manuales</a>
+                <a href="opinions/index.html">Opiniones</a>
+                <a href="support/index.html">Soporte</a>
+                <a href="privacy/index.html">Privacidad</a>
+            </nav>
 
-    <div class="card">
-        <h2>Compromiso de Privacidad</h2>
-        <p>FenixIRC es un proyecto sin fines de lucro. <strong>NO recolectamos, almacenamos ni traficamos con tus datos.</strong> Nuestra única misión es devolver a la comunidad informática lo que hemos recibido de ella.</p>
-    </div>
+            <!-- Descargas -->
+            <div class="download-grid">
+                <a href="https://github.com/drthands-apps/IRCClient/releases/download/v0.9/app-lite-0.9.apk" class="btn btn-primary">
+                    <span class="icon">⚡</span> Descargar Lite v0.9
+                </a>
+                <a href="https://github.com/drthands-apps/IRCClient/releases/download/v0.9/app-pro-0.9.zip" class="btn btn-pro">
+                    <span class="icon">🔒</span> Descargar Pro v0.9 (ZIP)
+                </a>
+                <a href="https://fenixirc.itch.io/" target="_blank" class="btn btn-donate">
+                    <span class="icon">❤️</span> Donar en itch.io
+                </a>
+            </div>
+            <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 14px; position: relative; z-index: 1;">
+                * La versión Pro requiere contraseña — solicítala en nuestro canal de soporte.
+            </p>
+        </header>
 
-    <div class="card">
-        <h2>Manual de Usuario</h2>
-        <p>Explora todas las funciones de FenixIRC:</p>
-        <ul>
-            <li><strong>Cifrado AES-256:</strong> Protege tus privados con encriptación de extremo a extremo.</li>
-            <li><strong>Multiservidor:</strong> Conéctate a múltiples redes simultáneamente.</li>
-            <li><strong>Multimedia <span class="pro-badge">PRO</span>:</strong> Envía imágenes, audio y archivos reales.</li>
-        </ul>
-    </div>
+        <!-- ===== CARDS PRINCIPALES ===== -->
 
-    <div class="card">
-        <h2>Tutorial de Scripts <span class="pro-badge">PRO</span></h2>
-        <p>Personaliza tu experiencia con el motor de scripts. Sintaxis:</p>
-        <p><code>OUT: /alias -> COMANDO</code></p>
-        <p>Ejemplo: <code>OUT: /cafe -> PRIVMSG %T :☕ Aquí tienes un café caliente para %A</code></p>
-        <p>Variables soportadas: <code>%T</code> (Destino), <code>%N</code> (Tu Nick), <code>%A</code> (Argumentos).</p>
-    </div>
-
-    <div class="card">
-        <h2>Librería de Scripts (Copiar y Pegar)</h2>
-        <p>Copia estos comandos en tu editor de Scripts (Versión Pro) para automatizar acciones:</p>
-
-        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #6200EE; margin-top: 10px;">
-            <strong>Saludo Rápido:</strong><br>
-            <code>OUT: /hi -> PRIVMSG %T :¡Hola a todos! Saludos de %N.</code>
+        <!-- Lite -->
+        <div class="card card-secondary" id="lite">
+            <h2>FenixIRC Lite <span class="lite-badge">Gratis</span></h2>
+            <p>Diseñada para redes de texto puro con el mínimo consumo de batería e identidad de sigilo (<strong>Stealth</strong>).</p>
+            <ul class="feature-list">
+                <li>Conexión rápida y estable</li>
+                <li>Modo Stealth para máxima privacidad</li>
+                <li>Logs persistentes en .txt</li>
+                <li>Auto-scroll y burbujas de chat</li>
+                <li>Bloqueo de mensajes no deseados</li>
+            </ul>
         </div>
 
-        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #6200EE; margin-top: 10px;">
-            <strong>Script del Café:</strong><br>
-            <code>OUT: /cafe -> PRIVMSG %T :☕ Sirviendo un café caliente para %A! Que lo disfrutes.</code>
+        <!-- Pro -->
+        <div class="card card-pro" id="pro">
+            <h2>FenixIRC Pro <span class="pro-badge">Coleccionista</span></h2>
+            <p>Acceso anticipado a funciones avanzadas para usuarios exigentes.</p>
+            <ul class="feature-list">
+                <li><strong>Análisis Forense:</strong> Detección de clones, IP y hostmask</li>
+                <li><strong>Cifrado E2EE:</strong> AES-256 en mensajes privados</li>
+                <li><strong>Scripts ilimitados</strong> con variables avanzadas</li>
+                <li><strong>Gestión de canales:</strong> OP/KICK/BAN</li>
+                <li><strong>Envío multimedia</strong> (imágenes, audio, archivos)</li>
+                <li><strong>Túnel FSR</strong> para transferencias directas</li>
+                <li><strong>Radio Plugin</strong> integrado</li>
+            </ul>
         </div>
 
-        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #6200EE; margin-top: 10px;">
-            <strong>Atajo para Privados:</strong><br>
-            <code>OUT: /p -> PRIVMSG %A</code>
+        <!-- Compromiso de Privacidad -->
+        <div class="card card-highlight">
+            <h2>🔐 Compromiso de Privacidad</h2>
+            <p><strong>FenixIRC es un proyecto sin fines de lucro.</strong> No recolectamos, almacenamos ni traficamos con tus datos. Nuestra única misión es devolver a la comunidad informática lo que hemos recibido de ella.</p>
+            <p style="margin-top: 10px;">Lee nuestra <a href="privacy/index.html">Política de Privacidad</a> para más detalles.</p>
         </div>
 
-        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #6200EE; margin-top: 10px;">
-            <strong>Acción de Pescañazo (Classic):</strong><br>
-            <code>OUT: /slap -> PRIVMSG %T : ACTION le da un pescañazo a %A con una trucha gigante </code>
+        <!-- ===== SCRIPTS ===== -->
+        <div class="card" id="scripts">
+            <h2>📜 Tutorial de Scripts <span class="pro-badge">PRO</span></h2>
+            <p>Personaliza tu experiencia con el motor de scripts. Sintaxis:</p>
+            <div class="code-block">
+                <span class="keyword">OUT:</span> /alias <span class="keyword">-&gt;</span> <span class="variable">COMANDO</span>
+            </div>
+            <p><strong>Ejemplo:</strong></p>
+            <div class="code-block">
+                <span class="keyword">OUT:</span> /cafe <span class="keyword">-&gt;</span> PRIVMSG <span class="variable">%T</span> :☕ Aquí tienes un café caliente para <span class="variable">%A</span>
+            </div>
+            <p>Variables soportadas:</p>
+            <ul>
+                <li><code>%T</code> — Destino (canal o usuario)</li>
+                <li><code>%N</code> — Tu Nick</li>
+                <li><code>%A</code> — Argumentos</li>
+            </ul>
+
+            <h3 style="margin-top: 24px;">Librería de Scripts (Copiar y Pegar)</h3>
+
+            <div style="background: #f8f9fa; padding: 14px 18px; border-radius: 10px; margin-top: 10px; border-left: 4px solid var(--primary);">
+                <strong>Saludo Rápido:</strong><br />
+                <code>OUT: /hi -> PRIVMSG %T :¡Hola a todos! Saludos de %N.</code>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 14px 18px; border-radius: 10px; margin-top: 10px; border-left: 4px solid var(--primary);">
+                <strong>Script del Café:</strong><br />
+                <code>OUT: /cafe -> PRIVMSG %T :☕ Sirviendo un café caliente para %A! Que lo disfrutes.</code>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 14px 18px; border-radius: 10px; margin-top: 10px; border-left: 4px solid var(--primary);">
+                <strong>Atajo para Privados:</strong><br />
+                <code>OUT: /p -> PRIVMSG %A</code>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 14px 18px; border-radius: 10px; margin-top: 10px; border-left: 4px solid var(--primary);">
+                <strong>Acción de Pescañazo (Classic):</strong><br />
+                <code>OUT: /slap -> PRIVMSG %T : ACTION le da un pescañazo a %A con una trucha gigante</code>
+            </div>
         </div>
+
+        <!-- ===== SEGURIDAD Y ANONIMATO (NUEVA) ===== -->
+        <div class="card" id="safety" style="border-left: 5px solid var(--danger);">
+            <h2>🛡️ Seguridad y Anonimato</h2>
+            <p style="font-size: 1.05rem; margin-bottom: 20px;">
+                Consejos prácticos para proteger tu identidad y evitar ataques en IRC.
+            </p>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🕵️</div>
+                <div>
+                    <h4>1. Usa un Nick sin relación con tu identidad real</h4>
+                    <p>Elige un apodo que no incluya tu nombre, fecha de nacimiento o información personal. Cambia tu nick regularmente si participas en redes públicas.</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🔐</div>
+                <div>
+                    <h4>2. Activa el cifrado E2EE (Pro)</h4>
+                    <p>Los mensajes privados con cifrado AES-256 protegen tu conversación incluso si el servidor es comprometido. Asegúrate de que tu interlocutor también lo tenga activo.</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🚫</div>
+                <div>
+                    <h4>3. Bloquea mensajes no deseados</h4>
+                    <p>Activa <strong>"Solo Amigos en PV"</strong> en Ajustes > Seguridad. Solo los usuarios en tu lista de amigos podrán abrirte ventana privada.</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🛡️</div>
+                <div>
+                    <h4>4. Usa el Modo Stealth (Lite/Pro)</h4>
+                    <p>Minimiza tu huella digital: reduce la información que envías al servidor (identidad mínima, sin metadata adicional).</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🧹</div>
+                <div>
+                    <h4>5. No compartas archivos sospechosos</h4>
+                    <p>El envío de archivos (Pro) usa proveedores externos. Solo comparte con personas de confianza y evita ejecutar archivos desconocidos.</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">📋</div>
+                <div>
+                    <h4>6. Guarda logs como evidencia</h4>
+                    <p>FenixIRC guarda logs automáticamente. Si sufres acoso, guarda el historial y contacta con los operadores de la red proporcionando el <strong>Hostmask</strong> del agresor.</p>
+                </div>
+            </div>
+
+            <div class="safety-tip">
+                <div class="safety-icon">🌐</div>
+                <div>
+                    <h4>7. Considera usar una VPN</h4>
+                    <p>Una VPN oculta tu IP real al servidor IRC, añadiendo una capa extra de anonimato. Elige un proveedor sin registros.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== DONACIONES ===== -->
+        <div class="card card-dark" id="donate">
+            <h2>❤️ Apoya el Proyecto</h2>
+            <p>FenixIRC es desarrollado por <strong>drthands</strong> con el apoyo de la comunidad. Tu contribución nos ayuda a mantener el servidor, mejorar la app y seguir ofreciendo un cliente IRC libre y privado.</p>
+            <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 14px;">
+                <a href="https://fenixirc.itch.io/" target="_blank" class="btn btn-donate" style="background: #fff; color: var(--primary-dark);">
+                    <span class="icon">🎮</span> Donar en itch.io
+                </a>
+                <a href="https://github.com/drthands-apps/IRCClient" target="_blank" class="btn" style="background: rgba(255,255,255,0.15); color: #fff; box-shadow: none;">
+                    <span class="icon">⭐</span> GitHub
+                </a>
+            </div>
+            <p style="margin-top: 16px; opacity: 0.8; font-size: 0.9rem;">
+                También puedes contribuir con código, reportando issues o compartiendo el proyecto.
+            </p>
+        </div>
+
+        <!-- ===== CRÉDITOS ===== -->
+        <div class="card" style="background: linear-gradient(135deg, #f8f5ff 0%, #f0fdfa 100%);">
+            <h2>🧠 Créditos y Colaboración</h2>
+            <p>FenixIRC es el resultado de una colaboración única entre la visión humana y la inteligencia artificial avanzada, apoyada sobre los hombros de gigantes.</p>
+            <ul style="margin-top: 12px; list-style: none; padding: 0;">
+                <li style="padding: 4px 0;"><strong>Fundamentos:</strong> Un reconocimiento a <strong>Pitágoras, Leibniz, Cantor y Gauss</strong>, cuyas mentes trazaron los caminos de la lógica y la matemática.</li>
+                <li style="padding: 4px 0;"><strong>Liderazgo y Visión:</strong> drthands Apps.</li>
+                <li style="padding: 4px 0;"><strong>Arquitectura y Código:</strong> Desarrollado en colaboración con <strong>Google Gemini AI</strong>.</li>
+            </ul>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="footer-links">
+                <a href="privacy/index.html">Política de Privacidad</a>
+                <a href="tutorials/index.html">Tutoriales</a>
+                <a href="support/index.html">Soporte</a>
+                <a href="https://github.com/drthands-apps/IRCClient" target="_blank">GitHub</a>
+                <a href="https://fenixirc.itch.io/" target="_blank">itch.io</a>
+            </div>
+            <p>Desarrollado con la asistencia de <strong>Google Gemini AI</strong>.</p>
+            <p>&copy; 2026 FenixIRC.com — Bajo licencia MIT.</p>
+        </footer>
+
     </div>
-
-    <div class="card" style="background: linear-gradient(135deg, #6200EE 0%, #3700B3 100%); color: white;">
-        <h2>Créditos y Colaboración</h2>
-        <p>FenixIRC es el resultado de una colaboración única entre la visión humana y la inteligencia artificial avanzada, apoyada sobre los hombros de gigantes.</p>
-        <ul>
-            <li><strong>Fundamentos:</strong> Un reconocimiento a <strong>Pitágoras, Leibniz, Cantor y Gauss</strong>, cuyas mentes trazaron los caminos de la lógica y la matemática que permiten que hoy, en este punto culminante de la miseria humana, podamos seguir buscando la libertad a través del código.</li>
-            <li><strong>Liderazgo y Visión:</strong> Drthands Apps.</li>
-            <li><strong>Arquitectura y Código:</strong> Desarrollado íntegramente en colaboración con <strong>Google Gemini AI</strong>, quien ha proporcionado la lógica técnica, optimización de protocolos y diseño de seguridad de última generación.</li>
-        </ul>
-    </div>
-
-    <footer>
-        <p>Developed with the assistance of <strong>Google Gemini AI</strong>.</p>
-        <p><a href="privacy/index.html" style="color: #6200EE; text-decoration: none; font-weight: bold;">Política de Privacidad</a></p>
-        <p>&copy; 2026 FenixIRC.com - Bajo licencia MIT.</p>
-    </footer>
 </body>
 </html>
