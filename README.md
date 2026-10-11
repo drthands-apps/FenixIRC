@@ -2,44 +2,44 @@
 
 Modern Android IRC client built in Kotlin.
 
-FenixIRC is an Android IRC client designed for secure communication, flexible customization, and practical moderation tools. The project is structured around a lightweight Lite build and a more complete Pro build, allowing users to choose the feature set they need without carrying unnecessary functionality.
+FenixIRC is an Android IRC client designed for secure communication, channel management, and flexible user customization. The project is built around a lightweight Lite version and a more complete Pro version, allowing users to choose the feature set they need while keeping the app maintainable and modular.
 
 ## Overview
 
-FenixIRC aims to provide a polished IRC experience for Android with a focus on:
+FenixIRC aims to provide a practical IRC experience for Android with a focus on:
 
-- reliable chat and channel handling
-- secure/private communication in the Pro build
-- moderation tools for channel management
-- support for bot and script-driven workflows
-- responsive, modern Android UI
-- open-source development and community contributions
+- reliable IRC communication
+- user customization and interface flexibility
+- native moderation tools
+- script and bot support
+- secure communication features in the Pro build
+- open-source development with room for community contributions
 
 ## Features
 
 ### Core features
-- Android IRC client in Kotlin
-- Standard IRC channel and private messaging support
-- Channel discovery and user interaction
-- Moderation tools for managing channel activity
-- Script support for automation and custom workflows
-- Bot integration support
-- Modern, customizable Android interface
+- Android IRC client built in Kotlin
+- channel and private messaging support
+- user and channel management tools
+- moderation capabilities
+- script support for automation and custom workflows
+- bot integration support
+- modern Android interface
 
 ### Lite / Pro model
-- Lite build: focused on essential IRC functionality
-- Pro build: includes advanced features such as enhanced private messaging and more complete tool support
+- Lite build: essential IRC functionality for streamlined usage
+- Pro build: expanded features for advanced users, including enhanced privacy and communication tools
 
 ### Security
-- secure communication model for Pro functionality
-- local data handling with Android app-level configuration
-- architecture intended for incremental security improvements and safe extension
+- secure communication design for Pro functionality
+- app-level configuration and privacy-aware architecture
+- foundation for gradual security improvements
 
 ## Project status
 
 This project is in active development.
 
-The current repository is intended as a source-available Android project built with Android Studio and Gradle. It is suitable for development, testing, and community contribution.
+The repository currently contains the Android source code for the project, built with Android Studio and Gradle. It is intended for development, testing, and community-driven improvement.
 
 ## Requirements
 
@@ -60,12 +60,12 @@ cd FenixIRC
 ### Open in Android Studio
 
 1. Open Android Studio
-2. Choose "Open an existing project"
-3. Select the cloned `FenixIRC` directory
+2. Select “Open an existing project”
+3. Choose the cloned FenixIRC directory
 4. Let Gradle sync
-5. Build or run the project on a connected device or emulator
+5. Build or run the app on a device or emulator
 
-### Build from command line
+### Build from the command line
 
 ```bash
 ./gradlew assembleDebug
@@ -92,7 +92,8 @@ FenixIRC/
 ├── gradlew.bat
 ├── LICENSE
 ├── README.md
-└── .gitignore
+├── .gitignore
+└── ...
 ```
 
 ## Current application metadata
@@ -105,14 +106,16 @@ FenixIRC/
 
 ## Development and contributions
 
-Contributions are welcome. If you want to improve the project, report bugs, propose new features, or help with testing, please open an issue or submit a pull request.
+Contributions are welcome.
 
-### Suggested contribution areas
-- feature development
-- UI improvements
-- IRC protocol handling
-- moderation workflows
+If you want to improve the project, report bugs, propose features, or help with testing, feel free to open an issue or submit a pull request.
+
+### Areas of contribution
+- IRC protocol improvements
+- UI and UX improvements
+- moderation features
 - security review
+- scripting and bot support
 - documentation and localization
 
 ## Community and contact
@@ -125,13 +128,13 @@ Contributions are welcome. If you want to improve the project, report bugs, prop
 
 ## Support and sponsorship
 
-The project is maintained by the developer community and contributors. Support can come in the form of:
+The project is maintained by the developer community and contributors. Support may come in the form of:
 
 - code contributions
 - bug reports
 - feature suggestions
 - testing and validation
-- sponsorship or donations if available
+- sponsorship or community support
 
 ## License
 
@@ -139,8 +142,8 @@ This project is licensed under the GNU General Public License v3.0. See the [LIC
 
 ## Disclaimer
 
-This project is provided as-is without warranty. Users are responsible for complying with their local laws, IRC network rules, and the terms of the services they connect to.
+This project is provided as-is without warranty. Users are responsible for complying with local laws, IRC network rules, and the terms of the services they connect to.
 
 ---
 
-FenixIRC is an open-source Android IRC client project intended for community-driven development and iterative improvement.
+FenixIRC is an open-source Android IRC client project intended for community-driven development and continuous improvement.
