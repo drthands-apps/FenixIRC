@@ -1,11 +1,17 @@
 # FenixIRC
 
+<p align="center">
+  <img src="assets/fenixirczerotelemetry.png" alt="FenixIRC banner" width="900" />
+</p>
+
+<p align="center">
+  <img src="assets/fenixblue.png" alt="FenixIRC blue logo" width="180" />
+  <img src="assets/fenixorange.png" alt="FenixIRC orange logo" width="180" />
+</p>
+
 Modern Android IRC client built in Kotlin.
 
-FenixIRC is an Android IRC client designed for secure communication, channel management, and
-flexible user customization. The project is built around a lightweight Lite version and a more
-complete Pro version, allowing users to choose the feature set they need while keeping the app
-maintainable and modular.
+FenixIRC is an Android IRC client designed for secure communication, channel management, and flexible user customization. The project is built around a lightweight Lite version and a more complete Pro version, allowing users to choose the feature set they need while keeping the app maintainable and modular.
 
 ## Overview
 
@@ -33,8 +39,7 @@ FenixIRC aims to provide a practical IRC experience for Android with a focus on:
 ### Lite / Pro model
 
 - Lite build: essential IRC functionality for streamlined usage
-- Pro build: expanded features for advanced users, including enhanced privacy and communication
-  tools
+- Pro build: expanded features for advanced users, including enhanced privacy and communication tools
 
 ### Security
 
@@ -42,12 +47,25 @@ FenixIRC aims to provide a practical IRC experience for Android with a focus on:
 - app-level configuration and privacy-aware architecture
 - foundation for gradual security improvements
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/menu-servers.jpg" alt="Server menu" width="280" />
+  <img src="assets/menu-superior.jpg" alt="Top menu" width="280" />
+  <img src="assets/pantalla-chat.jpg.jpg" alt="Chat screen" width="280" />
+</p>
+
+<p align="center">
+  <img src="assets/add-server-2.jpg" alt="Add server step 2" width="280" />
+  <img src="assets/add-server-3.jpg" alt="Add server step 3" width="280" />
+  <img src="assets/add-server-4.jpg" alt="Add server step 4" width="280" />
+</p>
+
 ## Project status
 
 This project is in active development.
 
-The repository currently contains the Android source code for the project, built with Android Studio
-and Gradle. It is intended for development, testing, and community-driven improvement.
+The repository currently contains the Android source code for the project, built with Android Studio and Gradle. It is intended for development, testing, and community-driven improvement.
 
 ## Requirements
 
@@ -93,6 +111,11 @@ FenixIRC/
 │   ├── src/
 │   ├── build.gradle.kts
 │   └── .gitignore
+├── assets/
+│   ├── fenixblue.png
+│   ├── fenixorange.png
+│   ├── fenixirczerotelemetry.png
+│   └── screenshots and tutorial images
 ├── gradle/
 ├── build.gradle.kts
 ├── settings.gradle.kts
@@ -116,8 +139,7 @@ FenixIRC/
 
 Contributions are welcome.
 
-If you want to improve the project, report bugs, propose features, or help with testing, feel free
-to open an issue or submit a pull request.
+If you want to improve the project, report bugs, propose features, or help with testing, feel free to open an issue or submit a pull request.
 
 ### Areas of contribution
 
@@ -138,8 +160,7 @@ to open an issue or submit a pull request.
 
 ## Support and sponsorship
 
-The project is maintained by the developer community and contributors. Support may come in the form
-of:
+The project is maintained by the developer community and contributors. Support may come in the form of:
 
 - code contributions
 - bug reports
@@ -149,15 +170,12 @@ of:
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file
-for the full text.
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for the full text.
 
 ## Disclaimer
 
-This project is provided as-is without warranty. Users are responsible for complying with local
-laws, IRC network rules, and the terms of the services they connect to.
+This project is provided as-is without warranty. Users are responsible for complying with local laws, IRC network rules, and the terms of the services they connect to.
 
 ---
 
-FenixIRC is an open-source Android IRC client project intended for community-driven development and
-continuous improvement.
+FenixIRC is an open-source Android IRC client project intended for community-driven development and continuous improvement.
