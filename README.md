@@ -1,177 +1,146 @@
-# FenixIRC - Advanced Android IRC Client
+# FenixIRC
 
-**The most feature-rich IRC client for Android**
+Modern Android IRC client built in Kotlin.
 
-FenixIRC is a modern, secure, and highly customizable IRC client built for Android with Kotlin. It combines powerful functionality with an intuitive user interface, offering both lightweight (Lite) and feature-complete (Pro) versions.
+FenixIRC is an Android IRC client designed for secure communication, flexible customization, and practical moderation tools. The project is structured around a lightweight Lite build and a more complete Pro build, allowing users to choose the feature set they need without carrying unnecessary functionality.
+
+## Overview
+
+FenixIRC aims to provide a polished IRC experience for Android with a focus on:
+
+- reliable chat and channel handling
+- secure/private communication in the Pro build
+- moderation tools for channel management
+- support for bot and script-driven workflows
+- responsive, modern Android UI
+- open-source development and community contributions
 
 ## Features
 
-### Core Features
-- **Modern IRC Protocol Support** - Full compliance with IRC standards (RFC 1459)
-- **Enhanced Security** - Reinforced encryption and secure authentication
-- **Native Moderation Tools** - Built-in channel management and user controls
-- **Script Support** - Execute custom IRC scripts for automation
-- **Bot Integration** - Deploy and manage IRC bots directly from the app
-- **Encrypted Private Messages** (Pro) - End-to-end encrypted messaging for Pro users
-- **Aesthetic & Functional Customization** - Theme, layout, and behavior personalization
+### Core features
+- Android IRC client in Kotlin
+- Standard IRC channel and private messaging support
+- Channel discovery and user interaction
+- Moderation tools for managing channel activity
+- Script support for automation and custom workflows
+- Bot integration support
+- Modern, customizable Android interface
 
-### User Interface
-- **Clean, Intuitive Design** - Modern Android UI with Jetpack Compose
-- **Responsive Layout** - Optimized for all Android devices
-- **Real-time Chat** - Instant message delivery and notifications
-- **Channel Discovery** - Browse and join public IRC channels
-- **User Management** - Manage contacts, friends, and blocked users
+### Lite / Pro model
+- Lite build: focused on essential IRC functionality
+- Pro build: includes advanced features such as enhanced private messaging and more complete tool support
 
-### Dual Flavor System
-- **Lite** - Essential IRC functionality for minimal storage footprint
-- **Pro** - Complete feature set including encrypted messaging and advanced tools
+### Security
+- secure communication model for Pro functionality
+- local data handling with Android app-level configuration
+- architecture intended for incremental security improvements and safe extension
 
-## System Requirements
+## Project status
 
-- **Minimum SDK**: Android 7.0 (API 24)
-- **Target SDK**: Android 15 (API 37)
-- **Language**: Kotlin
-- **Build Tool**: Gradle 8.0+
+This project is in active development.
 
-## Installation
+The current repository is intended as a source-available Android project built with Android Studio and Gradle. It is suitable for development, testing, and community contribution.
 
-### From Source (Android Studio)
+## Requirements
 
-1. Clone the repository:
+- Android Studio
+- Android SDK
+- Kotlin toolchain
+- Gradle
+
+## Building the project
+
+### Clone the repository
+
 ```bash
 git clone https://github.com/drthands-apps/FenixIRC.git
 cd FenixIRC
 ```
 
-2. Open in Android Studio:
-   - File → Open → Select the FenixIRC folder
-   - Wait for Gradle to sync
+### Open in Android Studio
 
-3. Build and run:
-   - Select your target device
-   - Click "Run" (Shift + F10)
+1. Open Android Studio
+2. Choose "Open an existing project"
+3. Select the cloned `FenixIRC` directory
+4. Let Gradle sync
+5. Build or run the project on a connected device or emulator
 
-### Gradle Build
+### Build from command line
 
 ```bash
-./gradlew assembleRelease  # Build release APK
-./gradlew installDebug     # Install debug build
+./gradlew assembleDebug
 ```
 
-## Project Structure
+For a release build:
 
+```bash
+./gradlew assembleRelease
 ```
+
+## Project structure
+
+```text
 FenixIRC/
 ├── app/
-│   ├── src/main/java/com/personal/ircclient/
-│   │   ├── core/              # IRC engine, services, network management
-│   │   ├── data/              # Local database, entities, DAOs
-│   │   ├── ui/                # UI screens and components
-│   │   └── utils/             # Utility functions and helpers
-│   ├── build.gradle.kts       # App-level Gradle configuration
-│   └── src/                   # Resources and test files
-├── gradle/                    # Gradle wrapper and configuration
-├── build.gradle.kts           # Project-level Gradle configuration
-├── settings.gradle.kts        # Gradle module settings
-└── LICENSE                    # GPLv3 License
+│   ├── src/
+│   ├── build.gradle.kts
+│   └── .gitignore
+├── gradle/
+├── build.gradle.kts
+├── settings.gradle.kts
+├── gradlew
+├── gradlew.bat
+├── LICENSE
+├── README.md
+└── .gitignore
 ```
 
-## Key Technologies
+## Current application metadata
 
-- **Kotlin** - Modern language for Android development
-- **Jetpack Compose** - Declarative UI framework
-- **Room Database** - Local data persistence
-- **Coroutines** - Asynchronous programming
-- **Gradle** - Build automation
-
-## Configuration
-
-### Application ID
-- Lite: `com.drthands.fenixirc`
-- Pro: `com.drthands.fenixirc.pro`
-
-### Current Version
+- Application package: `com.drthands.fenixirc`
+- Minimum SDK: 24
+- Target SDK: 37
 - Version Code: 24
 - Version Name: 0.99 rev4
 
-## Development & Contributions
+## Development and contributions
 
-FenixIRC is open-source and welcomes contributions from the community. Whether you're interested in:
-- Bug fixes and improvements
-- New feature development
-- UI/UX enhancements
-- Documentation
-- Localization
+Contributions are welcome. If you want to improve the project, report bugs, propose new features, or help with testing, please open an issue or submit a pull request.
 
-Please consider joining our development community!
+### Suggested contribution areas
+- feature development
+- UI improvements
+- IRC protocol handling
+- moderation workflows
+- security review
+- documentation and localization
 
-### Contributing
+## Community and contact
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -am 'Add feature'`
-4. Push to the branch: `git push origin feature/your-feature`
-5. Submit a pull request
+- Website: https://fenixirc.com
+- Main site: https://drthands.com
+- Email: contacto@drthands.com
+- Email: drthands@gmail.com
+- GitHub: https://github.com/drthands-apps
 
-## Community & Support
+## Support and sponsorship
 
-Join our growing community of IRC enthusiasts and developers:
+The project is maintained by the developer community and contributors. Support can come in the form of:
 
-- **Website**: [fenixirc.com](https://fenixirc.com)
-- **Contact**: 
-  - Email: [contacto@drthands.com](mailto:contacto@drthands.com)
-  - Email: [drthands@gmail.com](mailto:drthands@gmail.com)
-- **Main Site**: [drthands.com](https://drthands.com)
-- **GitHub**: [github.com/drthands-apps](https://github.com/drthands-apps)
-
-## Support & Sponsorship
-
-FenixIRC is maintained by volunteers dedicated to keeping the project active and improving it regularly. If you find FenixIRC valuable and would like to support its development:
-
-- **Contribute Code** - Help us build new features and fix bugs
-- **Report Issues** - Help identify and document problems
-- **Sponsor Development** - Consider supporting the project financially
-
-Your support helps us:
-- Maintain active development
-- Sustain server infrastructure
-- Expand features and capabilities
-- Support the developer community
+- code contributions
+- bug reports
+- feature suggestions
+- testing and validation
+- sponsorship or donations if available
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
-
-### What this means:
-- ✅ Free to use, modify, and distribute
-- ✅ Source code must remain open
-- ✅ Modifications must be shared under the same license
-- ✅ No warranty provided
-
-## Roadmap & Future
-
-We're continuously working on:
-- Performance optimizations
-- Additional encryption methods
-- Enhanced bot framework
-- Extended scripting capabilities
-- Community-driven features
-
-## Credits
-
-FenixIRC is built with dedication by the open-source community. Special thanks to:
-- All contributors who have invested time in improving this project
-- The IRC community for their continued support
-- Users who provide feedback and suggestions
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for the full text.
 
 ## Disclaimer
 
-FenixIRC is provided "AS IS" without any warranty. Users are responsible for complying with IRC network policies and local laws when using this software.
+This project is provided as-is without warranty. Users are responsible for complying with their local laws, IRC network rules, and the terms of the services they connect to.
 
 ---
 
-**Status**: Active Development (v0.99)
-
-*Last Updated: October 2026*
-
-For the latest updates and releases, visit the [GitHub Repository](https://github.com/drthands-apps/FenixIRC).
+FenixIRC is an open-source Android IRC client project intended for community-driven development and iterative improvement.
