@@ -132,7 +132,7 @@ FenixIRC/
 - Application package: `com.drthands.fenixirc`
 - Minimum SDK: 24
 - Target SDK: 37
-- Version Code: 24
+- Version Code: 25
 - Version Name: 0.99 rev4
 
 ## Development and contributions
